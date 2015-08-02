@@ -1,0 +1,24 @@
+<?php
+
+//if I remember the example correctly, the array stored the name as:
+
+$users = array(
+	"name" = array(
+		"first_name" = "bob",
+		"second_name" = "dole"
+		)
+	"cost" = 123,
+	"email" = "bob@dole.com"
+	)
+	});
+
+$template = echo ("Hello . $users=>"name"=>"first_name" . ", \n
+we are please to confirm the details of your new contract. It will
+cost £" . $users=>"cost".".\n We woulike to confirm that your email address is " . $users=>"email" . "? \n
+Kind Regards,
+John.";
+
+
+echo $template;
+
+?>
