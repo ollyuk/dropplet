@@ -1,14 +1,9 @@
 <?php
 
-/*
- Welcome <?php echo $_POST["first_name"]; ?><br>
 
-second_name: <?php echo $_POST["second_name"]; ?> <br>
-email_address: <?php echo $_POST["email_address"]; ?> <br>
-join_date: <?php echo $_POST["join_date"]; ?> <br>
-gender: <?php echo $_POST["gender"]; ?> <br> */
-
+	// Include bootstrap and navbar.
 	include_once"index.html";
+	//Include mysql connector, also user authentication.
 	include_once"connection.php";
 
 
@@ -22,8 +17,6 @@ gender: <?php echo $_POST["gender"]; ?> <br> */
 
 
 	// User input data should be sanitised.
-	
-
 
 	$sql = "INSERT INTO users (first_name, second_name, email_address, join_date, gender)
 	VALUES ('$first_name', '$second_name', '$email_address', '$join_date', '$gender')";

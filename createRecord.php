@@ -1,5 +1,6 @@
 <?php
 	include_once"index.html";
+	require_once"connection.php";
 ?>	
 	<h1>Add New Record</h1>
 	<div class = "form-group">

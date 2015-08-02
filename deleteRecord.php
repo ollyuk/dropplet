@@ -24,15 +24,24 @@ if ($result->num_rows > 0) {
 };  
 
 
+
+
 $conn->close();
 ?>
-
 
 <script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
         //user_record = json.object = $(this).data("user_record");
-        alert(JSON.stringify($(this).data("user_record")));
+        alert("Ajax call on deleteRow.php -> deleteRecord()");
+        $.ajax({
+          url: '/deleteRow.php',
+          type: 'post',
+          data: { "deleteRecord": "1"},
+        }).done(function(message) {
+          alert(message);
+        });
+        
     });
 })
 </script>
