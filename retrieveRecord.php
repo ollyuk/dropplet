@@ -57,7 +57,7 @@ $conn->close();
 <script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
-        VAR Letter = $(this).data("user_record");
+        letter = $(this).data("user_record");
         document.getElementById("modal-content").innerHTML = letter;
        
         $('#myModal').modal('show');
