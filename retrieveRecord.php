@@ -1,5 +1,7 @@
 <?php
 
+//index.html is the navbar
+// connection.php is MySQL connector and user authentication.
 include_once"index.html";
 include_once"connection.php";
 
@@ -14,6 +16,10 @@ echo "<table class='table table-striped table-hover'>
   </tr>
   ";
 
+
+// Loop thru users table and generate $user array of sql data. Generate a $letter and add it to the <tr> element. 
+// Add listener to .clickable-row class and edit the modal text content before showing it.
+ 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {                
@@ -37,8 +43,8 @@ if ($result->num_rows > 0) {
 
 function generateLetter($first_name,$email,$cost){
   $template = "Dear " . $first_name . ", <p><p>
-  We are please to confirm the details of your new contract, it will
-  cost &pound" . $cost . " per year. <br> We would like to confirm that your email address is " . $email . "? <p>
+  We are pleased to confirm the details of your new contract, it will
+  cost &pound" . $cost . " per year. <p>We would also like to confirm that we have the correct contact details for you and that your email address is " . $email . "? <p>
   Kind Regards,<p>
   John.";
   return $template;
@@ -51,8 +57,7 @@ $conn->close();
 <script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
-        //user_record = json.object = $(this).data("user_record");
-        var letter = $(this).data("user_record");
+        VAR Letter = $(this).data("user_record");
         document.getElementById("modal-content").innerHTML = letter;
        
         $('#myModal').modal('show');
