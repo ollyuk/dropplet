@@ -1,4 +1,5 @@
 dropplet
+--------
 To be done.
 
 Nosql injection protection or to prevent users posting malicious html/js/etc, in either direction (adding to or retrieving from dB.)
@@ -15,7 +16,7 @@ Work sql db - add more tables.
 
 Remove users.db
 
-aesthetic
+Aesthetic
 ---------
 
 Bootstrap better use of the container divs.
