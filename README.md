@@ -1,6 +1,12 @@
 dropplet
 --------
+Simple database of users with authentication and CRUD.
+
+Uses HTML5, PHP, MySQL, JS, JQuery, Bootstrap.
+
+
 To be done.
+-----------
 
 Nosql injection protection or to prevent users posting malicious html/js/etc, in either direction (adding to or retrieving from dB.)
 

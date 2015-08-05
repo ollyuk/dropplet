@@ -373,7 +373,7 @@ class OneFileLoginApplication
         echo '<input id="login_input_password_repeat" class="login_input" type="password" name="user_password_repeat" pattern=".{6,}" required autocomplete="off" />';
         echo '<input type="submit" name="register" value="Register" />';
         echo '</form>';
-        echo '<a href="' . $_SERVER['SCRIPT_NAME'] . '">Homepage</a>';
+        echo '<a href="http://178.62.75.23/home.php">Homepage</a>';
     }
 }
 // run the application

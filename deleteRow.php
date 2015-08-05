@@ -19,9 +19,12 @@ $servername = "localhost";
 		}
 
 // Pass across reference to mysqli connection $conn.
-
+// Check for POST value, grab it and add to SQL and delete the row, return status.	
 function deleteRecord(&$conn){
-    // sql to delete a record grab the POST value and use it to delete the row.
+    
+	$messge = "<div class='alert alert-danger'>
+	      <strong>Error!</strong> No user_id passed.
+	      </div>";
 	if (isset($_POST['deleteRecord'])){
 		$id = $_POST['deleteRecord'];
 	  	$sql = "DELETE FROM users WHERE user_id=$id";

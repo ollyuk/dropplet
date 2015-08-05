@@ -5,6 +5,9 @@
 include_once"index.html";
 include_once"connection.php";
 
+// Overview: Loop thru SQL DB utility.users table and generate $user array of sql data, put it into an html table. Generate a $letter and add it to the <tr> element. 
+// Add listener to .clickable-row class and edit the modal text content data-user_record before showing it.
+// Uses HTML5, PHP, MySQL, JS, JQuery, Bootstrap.
 echo ("<h1> Retrieving records </h1>");
 echo ("Click row to send letter <p>");
 $sql = "SELECT user_id, first_name, second_name, email_address, join_date, gender FROM users";
@@ -17,8 +20,7 @@ echo "<table class='table table-striped table-hover'>
   ";
 
 
-// Loop thru users table and generate $user array of sql data. Generate a $letter and add it to the <tr> element. 
-// Add listener to .clickable-row class and edit the modal text content before showing it.
+
  
 if ($result->num_rows > 0) {
     // output data of each row
@@ -35,12 +37,15 @@ if ($result->num_rows > 0) {
         "gender" => $row['gender']
       );
 
+      //create letter from array values.
       $letter=generateLetter($user['name']['first_name'],$user['email'],$user['cost']);
+
 
       echo ("<tr class='clickable-row' data-user_record='" . $letter . "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
     };
 };  
 
+// generate a letter.
 function generateLetter($first_name,$email,$cost){
   $template = "Dear " . $first_name . ", <p><p>
   We are pleased to confirm the details of your new contract, it will
