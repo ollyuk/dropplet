@@ -2,7 +2,7 @@
 	include_once"index.html";
 	require_once"connection.php";
 ?>	
-	<h1>Add New Record</h1>
+	<h1>Create Records</h1>
 	<div class = "form-group">
 		<form role="form" action="addsql.php" method="post">
 

@@ -8,7 +8,7 @@ include_once"connection.php";
 // Overview: Loop thru SQL DB utility.users table and generate $user array of sql data, put it into an html table. Generate a $letter and add it to the <tr> element. 
 // Add listener to .clickable-row class and edit the modal text content data-user_record before showing it.
 // Uses HTML5, PHP, MySQL, JS, JQuery, Bootstrap.
-echo ("<h1> Retrieving records </h1>");
+echo ("<h1> Retrieve Records </h1>");
 echo ("Click row to send letter <p>");
 $sql = "SELECT user_id, first_name, second_name, email_address, join_date, gender FROM users";
 $result = $conn->query($sql);

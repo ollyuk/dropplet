@@ -2,7 +2,7 @@ dropplet
 --------
 Simple, responsive, website with database of users, authentication, and CRUD.
 
-Uses HTML5, PHP, MySQL, JS, JQuery, Bootstrap.
+Uses HTML5, CSS, PHP, MySQL, JS, JQuery, Bootstrap.
 
 
 To be done.
