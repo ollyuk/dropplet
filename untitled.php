@@ -5,17 +5,30 @@
 include_once"index.html";
 include_once"connection.php";
 include_once"class/class.Record.inc";
+include_once"class/class.Plan.inc";
+
 
 $user_record = new User_Record();
 
-$sql = "SELECT user_id, first_name, second_name, email_address, join_date, gender FROM users";
+$sql = "select u.*, p.name as Plan, p.cost 
+from users u 
+inner join users_plans bp on u.user_id = bp.user_id 
+inner join plans p on bp.plan_id = p.plan_id order by u.first_name";
 $result = $conn->query($sql);
 
-echo($result->num_rows);
+//echo($result->num_rows);
 $myArr = $result->fetch_all(MYSQLI_ASSOC);
-var_dump($myArr[0]);
-var_dump($myArr[0]['first_name']);
-echo($myArr[0]['first_name']);
-$user_record->add_record($myArr);
+var_dump($myArr[1]);
+//var_dump($myArr[0]['first_name']);
+//echo($myArr[0]['first_name']);
+$user_record->add_record($myArr[0]);
 
 echo($user_record->display_name());
+
+
+$plan = New Plan_Record();
+var_dump($plan);
+$user_record->plan = $plan;
+$user_record->plan->add_plans($myArr[0]);
+
+echo($user_record->plan->display_name());

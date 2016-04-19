@@ -2,7 +2,10 @@
 
 include_once"index.html";
 include_once"connection.php";
-// echo("<div class='well'> No updating records yet... </div>");
+include_once"class/class.Record.inc";
+include_once"class/class.Plan.inc";
+
+echo("<div class='container'><div class='row'>");
 
 // Overview: Loop thru SQL DB utility.users table and generate $user array of sql data, put it into an html table. Generate a $letter and add it to the <tr> element. 
 // Add listener to .clickable-row class and edit the modal text content data-user_record before showing it.
@@ -10,12 +13,20 @@ include_once"connection.php";
 
 echo ("<h1> Update Records </h1>");
 echo ("Click row to update record <p>");
+
 $sql = "SELECT user_id, first_name, second_name, email_address, join_date, gender FROM users";
 $result = $conn->query($sql);
 
+$user = new User_Record();
+
 echo "<table class='table table-striped table-hover'>
   <tr>
-    <th> user_id </th> <th> first_name </th> <th> second_name </th> <th> gender </th> 
+    <th>user_id</th>
+    <th>first_name</th>
+    <th>second_name</th>
+    <th>join_date</th> 
+    <th>email_address</th>
+    <th>gender</th> 
   </tr>
   ";
 
@@ -23,31 +34,24 @@ echo "<table class='table table-striped table-hover'>
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {                
-      //$user_id = $row['user_id'];
-      //$record[] = $row;
-      $user = array(
-        "user_id" => $row['user_id'],
-        "name" => array(
-          "first_name" => $row['first_name'],
-          "second_name" => $row['second_name']
-        ),
-        "join_date" => $row['join_date'],
-        "cost" => 123,
-        "email_address" => $row['email_address'],
-        "gender" => $row['gender']
-      );
-
-      //create letter from array values.
       $json_row = json_encode($user);
-      //$letter=generateLetter($user['name']['first_name'],$user['email'],$user['cost']);
+      $user->add_record($row);
+      
+ 
 
-
-      echo ("<tr class='clickable-row' data-user_record='" . $json_row . "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
+      echo ("<tr id = 'user_id" . $user->user_id . "' class='clickable-row' data-user_record='" .$json_row. "'>
+          <td>" . $user->user_id  . "</td> 
+          <td>" . $user->first_name . "</td> 
+          <td>" . $user->second_name . "</td> 
+          <td>" . $user->join_date . "</td> 
+          <td>" . $user->email_address . "</td> 
+          <td>" . $user->gender . "</td> 
+          </tr> "
+        );
     };
 };  
 
 
-// generate a letter.
 
 
 $conn->close();
@@ -58,9 +62,10 @@ $conn->close();
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
         json_row = $(this).data("user_record");
+        
         $(document.getElementById("modal-user_id")).val(json_row['user_id']);
-        $(document.getElementById("modal-first_name")).val(json_row['name']['first_name']);
-        $(document.getElementById("modal-second_name")).val(json_row['name']['second_name']);
+        $(document.getElementById("modal-first_name")).val(json_row['first_name']);
+        $(document.getElementById("modal-second_name")).val(json_row['second_name']);
         $(document.getElementById("modal-email_address")).val(json_row['email_address']);
         $(document.getElementById("modal-join_date")).val(json_row['join_date']);
 
@@ -110,10 +115,10 @@ jQuery(document).ready(function($) {
 			
       </div>
       <div class="modal-footer">
-        <input class="form-control" type="submit">
+        <input class="form-control btn-success" type="submit">
         </p>
       </form>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
       </div>
     </div>
 

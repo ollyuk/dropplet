@@ -4,6 +4,7 @@ include_once"index.html";
 include_once"connection.php";
 
 //maybe change to bootstrap info to match rest of site.
+echo("<div class='container'><div class='row'>");
 echo ("<h1> Delete Records </h1>");
 echo ("Click row to delete <p>");
 echo ("<div id = 'notification area'></div>");
