@@ -37,6 +37,11 @@ class User_Record {
         return $output;
     }
     
+    function display_cost(){
+        $output = '';
+        $output .= $this->cost;
+        return $output;
+    }
     
     function add_record($row) {
         $this->first_name = $row['first_name'];

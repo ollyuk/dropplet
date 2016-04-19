@@ -14,6 +14,18 @@ echo ("Click row to send letter <p>");
 $sql = "SELECT user_id, first_name, second_name, email_address, join_date, gender FROM users";
 $result = $conn->query($sql);
 
+// generate a letter.
+function generateLetter($first_name,$email,$cost){
+  $template = "Dear " . $first_name . ", <p><p>
+  We are pleased to confirm the details of your new contract, it will
+  cost &pound" . $cost . " per year. <p>We would also like to confirm that we have the correct contact details for you and that your email address is " . $email . "? <p>
+  Kind Regards,<p>
+  John.";
+  return $template;
+}
+
+$user = new User_Record();
+
 echo "<table class='table table-striped table-hover'>
   <tr>
     <th> user_id </th> <th> first_name </th> <th> second_name </th> <th> gender </th> 
@@ -33,24 +45,26 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {                
       //$user_id = $row['user_id'];
       //$record[] = $row;
-      $user = array(
-        "user_id" => $row['user_id'],
-        "name" => array(
-          "first_name" => $row['first_name'],
-          "second_name" => $row['second_name']
-        ),
-        "join_date" => $row['join_date'],
-        "cost" => 123,
-        "email_address" => $row['email_address'],
-        "gender" => $row['gender']
-      );
+      $user->add_record($row);
+      // $user = array(
+      //   "user_id" => $row['user_id'],
+      //   "name" => array(
+      //     "first_name" => $row['first_name'],
+      //     "second_name" => $row['second_name']
+      //   ),
+      //   "join_date" => $row['join_date'],
+      //   "cost" => 123,
+      //   "email_address" => $row['email_address'],
+      //   "gender" => $row['gender']
+      // );
+      echo($user->display_name());
 
       //create letter from array values.
       $json_row = json_encode($user);
-      $letter=generateLetter($user['name']['first_name'],$user['email_address'],$user['cost']);
+      $letter=generateLetter($user->display_name(),$user->display_email(),$user->display_cost());
 
 
-      echo ("<tr id = 'user_id" . $row['user_id'] . "' class='clickable-row' data-user_record='" . $letter. "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
+      echo ("<tr id = 'user_id" . $user->display_name() . "' class='clickable-row' data-user_record='" . $letter. "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
     };
 };  
  
@@ -68,22 +82,14 @@ if ($result->num_rows > 0) {
 
 
        //create letter from array values.
-      $letter=generateLetter($user['name']['first_name'],$user['email_address'],$user['cost']);
+      $letter=generateLetter($user->display_name(),$user->display_email(),$user->display_cost());
 
 
 //       echo ("<tr class='clickable-row' data-user_record='" . $letter . "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
 //     };
 // };  
 
-// generate a letter.
-function generateLetter($first_name,$email,$cost){
-  $template = "Dear " . $first_name . ", <p><p>
-  We are pleased to confirm the details of your new contract, it will
-  cost &pound" . $cost . " per year. <p>We would also like to confirm that we have the correct contact details for you and that your email address is " . $email . "? <p>
-  Kind Regards,<p>
-  John.";
-  return $template;
-}
+
 
 $conn->close();
 ?>
