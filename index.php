@@ -10,7 +10,7 @@
  * @link https://github.com/panique/php-login-one-file/
  * @license http://opensource.org/licenses/MIT MIT License
  */
-echo("<a href='http://178.62.75.23/home.php'>Home is here.</a>");
+// echo("<a href='http://178.62.75.23/home.php'>Home is here.</a>");
 class OneFileLoginApplication
 {
     /**

@@ -4,7 +4,7 @@
 	if($application->getUserLoginStatus()){
 	
 		$servername = "localhost";
-		$username = "root";
+		$username = "simonsHR";
 		$password = "password";
 		$dbname = "utility";
 

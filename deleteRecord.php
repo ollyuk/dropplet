@@ -41,14 +41,17 @@ jQuery(document).ready(function($) {
 
         
         $.ajax({
-          url: '/deleteRow.php',
+          url: 'deleteRow.php',
           type: 'post',
           data: { "deleteRecord": $(this).data("user_record")['user_id']},
         }).done(function(message) {
           alert(message);
+          location.reload();
         });
         
+
     });
+
 })
 
 

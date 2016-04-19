@@ -7,7 +7,7 @@ include_once"index.html";
 
 <div class="container">
   <div class="jumbotron">
-    <h1>SimpleUtilities</h1> 
+    <h1>SimpleHR</h1> 
     <p><a href="http://www.github.com/ollyuk/dropplet/" target="_blank"> www.github.com/ollyuk/dropplet </a></p>
   </div>
 

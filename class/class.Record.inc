@@ -19,10 +19,30 @@ class User_Record {
         
         // Name
         $output .= $this->first_name;
-        $output .= ' ' . $this->last_name; 
+        $output .= ' ' . $this->second_name; 
         
         return $output;
         
+    }
+    function display_gender() {
+        $output = '';
+        
+        $output .= $this->gender;
+        return $output;
+    }
+    
+    function display_email(){
+        $output = '';
+        $output .= $this->email_address;
+        return $output;
+    }
+    
+    
+    function add_record($row) {
+        $this->first_name = $row['first_name'];
+        $this->second_name = $row['second_name'];
+        $this->email_address = $row['email_address'];
+        $this->gender = $row['gender'];
     }
     function __construct() {
         

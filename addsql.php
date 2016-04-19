@@ -30,6 +30,8 @@
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 	$conn->close();
+	header("Location: http://localhost/dropplet-master/createRecord.php");
+
 ?>
 
 </body>

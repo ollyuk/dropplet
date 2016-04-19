@@ -4,6 +4,7 @@
 // connection.php is MySQL connector and user authentication.
 include_once"index.html";
 include_once"connection.php";
+include_once"class/class.Record.inc";
 
 // Overview: Loop thru SQL DB utility.users table and generate $user array of sql data, put it into an html table. Generate a $letter and add it to the <tr> element. 
 // Add listener to .clickable-row class and edit the modal text content data-user_record before showing it.
@@ -19,31 +20,60 @@ echo "<table class='table table-striped table-hover'>
   </tr>
   ";
 
+// $test_user = new User_Record;
+// if ($result->num_rows > 0) {
+//     $row = $result->fetch_assoc();
+//     $test_user->add_record($row);
+// }
 
+// echo 'herp '.$test_user->first_name;
 
- 
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {                
       //$user_id = $row['user_id'];
       //$record[] = $row;
       $user = array(
+        "user_id" => $row['user_id'],
         "name" => array(
           "first_name" => $row['first_name'],
           "second_name" => $row['second_name']
         ),
+        "join_date" => $row['join_date'],
         "cost" => 123,
-        "email" => $row['email_address'],
+        "email_address" => $row['email_address'],
         "gender" => $row['gender']
       );
 
       //create letter from array values.
-      $letter=generateLetter($user['name']['first_name'],$user['email'],$user['cost']);
+      $json_row = json_encode($user);
+      $letter=generateLetter($user['name']['first_name'],$user['email_address'],$user['cost']);
 
 
-      echo ("<tr class='clickable-row' data-user_record='" . $letter . "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
+      echo ("<tr id = 'user_id" . $row['user_id'] . "' class='clickable-row' data-user_record='" . $letter. "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
     };
 };  
+ 
+// if ($result->num_rows > 0) {
+//     // output data of each row
+//     while($row = $result->fetch_assoc()) {                
+//       $user_id = $row['user_id'];
+//       $record[] = $row;
+   
+//     $test_user = new User_Record;
+//     if ($result->num_rows > 0) {
+//         $row = $result->fetch_assoc();
+//         $test_user->add_record($row);
+//     }
+
+
+       //create letter from array values.
+      $letter=generateLetter($user['name']['first_name'],$user['email_address'],$user['cost']);
+
+
+//       echo ("<tr class='clickable-row' data-user_record='" . $letter . "'><td>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
+//     };
+// };  
 
 // generate a letter.
 function generateLetter($first_name,$email,$cost){
@@ -62,13 +92,18 @@ $conn->close();
 <script>
 jQuery(document).ready(function($) {
     $(".clickable-row").click(function() {
+        //letter = "Hello Friends!";
+
         letter = $(this).data("user_record");
         document.getElementById("modal-content").innerHTML = letter;
        
         $('#myModal').modal('show');
     });
 });
+
+
 </script>
+
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
