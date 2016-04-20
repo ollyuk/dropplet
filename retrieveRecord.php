@@ -32,9 +32,13 @@ function generateLetter($first_name,$email,$cost){
 
 
 
-echo "<table class='table table-striped table-hover'>
+echo "<table class='table table-responsive table-striped table-hover'>
   <tr>
-    <th> user_id </th> <th> first_name </th> <th> second_name </th> <th> gender </th> <th> cost </th>
+    <th> user_id </th> 
+    <th> first_name </th> 
+    <th> second_name </th> 
+    <th> gender </th> 
+    <th> Options </th>
   </tr>
   ";
 
@@ -54,12 +58,19 @@ if ($result->num_rows > 0) {
       $letter=generateLetter($user->display_name(),$user->display_email(),$user->display_cost());
 
       
-      echo ("<tr id = 'user_id" . $user->user_id . "' class='clickable-row' data-user_record='" . $letter. "'>
-        <td>" . $user->user_id  . "</td> 
-        <td>" . $user->first_name . "</td> 
-        <td>" . $user->second_name . "</td> 
-        <td>" . $user->gender . "</td> 
-        <td>" . "cost" . "</td> 
+      echo ("<tr id = 'user_id" . $user->user_id . "' class='clickable-row'>
+          <td>" . $user->user_id  . "</td> 
+          <td>" . $user->first_name . "</td> 
+          <td>" . $user->second_name . "</td> 
+          <td>" . $user->gender . "</td> 
+          <td>
+            <button id='' data-user_record='" . $letter. "'type='button' class='btn-letter btn-xs btn btn-primary'>
+              <span class='glyphicon glyphicon-envelope' aria-hidden='true'></span>
+            </button>
+            <button data-user_record='" . $letter. "'type='button' class='btn-letter btn-xs btn btn-info'>
+              <span class='glyphicon  glyphicon-list-alt' aria-hidden='true'></span>
+            </button>
+          </td> 
 
         </tr> ");
     };
@@ -78,7 +89,7 @@ $conn->close();
 
 <script>
 jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
+    $(".btn-letter").click(function() {
         //letter = "Hello Friends!";
 
         letter = $(this).data("user_record");

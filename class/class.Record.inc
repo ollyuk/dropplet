@@ -53,6 +53,7 @@ class User_Record {
         $this->gender = $row['gender'];
     }
     function add_plans($plan) {
+        
         $this->plan = $plan;
     }
     function return_plans() {
