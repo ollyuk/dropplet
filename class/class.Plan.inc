@@ -12,6 +12,15 @@ class Plan_Record {
      * Display the plans details.
      * @return string
      */
+    function display_plan(){
+        $output =[];
+        
+        // Name
+        $output[] =  $this->name;
+        $output[] =  $this->cost;
+        return $output;
+
+    }
     function display_name() { 
         $output = '';
         

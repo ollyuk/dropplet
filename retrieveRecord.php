@@ -1,26 +1,32 @@
 <?php
 
-//index.html is the navbar
-// connection.php is MySQL connector and user authentication.
 include_once"index.html";
 include_once"connection.php";
 include_once"class/class.Record.inc";
+include_once"class/class.Plan.inc";
 
 
-// Overview: Loop thru SQL DB utility.users table and generate $user array of sql data, put it into an html table. Generate a $letter and add it to the <tr data-user_record> element. 
-// Add listener to .clickable-row class and edit the modal text content data-user_record before showing it.
-// Uses HTML5, PHP, MySQL, JS, JQuery, Bootstrap, CSS.
+$user = new User_Record();
+$plan = New Plan_Record();
+
+$sql = "select u.*, p.*
+from users u 
+left join users_plans bp on u.user_id = bp.user_id 
+left join plans p on bp.plan_id = p.plan_id order by u.first_name";
+$result = $conn->query($sql);
+$myArr = $result->fetch_all(MYSQLI_ASSOC);
+
+//echo($result->num_rows);
+
+
+
 
 echo("<div class='container'><div class='row'>");
 
-echo("<h1> Retrieve Records </h1>");
+echo("<h1> Action Records </h1>");
 echo(" </p>");
 
-$sql = "SELECT user_id, first_name, second_name, email_address, join_date, gender FROM users";
-$result = $conn->query($sql);
-$user = new User_Record();
 
-// generate a letter.
 function generateLetter($first_name,$email,$cost){
   $template = "Dear " . $first_name . ", <p><p>
   We are pleased to confirm the details of your new contract, it will
@@ -30,31 +36,33 @@ function generateLetter($first_name,$email,$cost){
   return $template;
 }
 
-
-
 echo "<table class='table table-responsive table-striped table-hover'>
   <tr>
     <th> first_name </th> 
     <th> second_name </th> 
     <th> gender </th> 
-    <th> Options </th>
+    <th> Actions </th>
   </tr>
   ";
 
 
-if ($result->num_rows > 0) {
+foreach($myArr as $item) {
     // output data of each row
-    while($row = $result->fetch_assoc()) {    
+       
                   
       //$user_id = $row['user_id'];
       //$record[] = $row;
-      $user->add_record($row);
+      $user->add_record($item);
+      $plan->add_plans($item);
 
       //create letter from array values.
       $json_row = json_encode($user);
 
        //create letter from array values.
       $letter=generateLetter($user->display_name(),$user->display_email(),$user->display_cost());
+      //generate the plan details for the modal.
+      
+      $planDetails="You are currently on " . $plan->display_plan()[0] . ".<br> This is charged at £" . floatval($plan->display_plan()[1]) . " per year.";
 
       
       echo ("<tr id = 'user_id" . $user->user_id . "' class='clickable-row'>
@@ -62,24 +70,18 @@ if ($result->num_rows > 0) {
           <td>" . $user->second_name . "</td> 
           <td>" . $user->gender . "</td> 
           <td>
-            <button id='' data-user_record='" . $letter. "'type='button' class='btn-letter btn-xs btn btn-primary'>
+            <button id='' data-toggle='tooltip' title='Click to generate letter' data-user_record=' " . $letter. " ' data-content_type='Letter' type='button' class='btn-letter btn-xs btn btn-primary'>
               <span class='glyphicon glyphicon-envelope' aria-hidden='true'></span>
             </button>
-            <button data-user_record='" . $letter. "'type='button' class='btn-letter btn-xs btn btn-info'>
+            <button data-toggle='tooltip' title='Click for plan details' data-user_record='" . $planDetails . "'data-content_type='Plan' type='button' class='btn-letter btn-xs btn btn-info'>
               <span class='glyphicon  glyphicon-list-alt' aria-hidden='true'></span>
             </button>
           </td> 
 
         </tr> ");
-    };
+    
 };  
  
-
-
-
-
-
-echo("</div>");
 
 $conn->close();
 ?>
@@ -90,9 +92,10 @@ jQuery(document).ready(function($) {
     $(".btn-letter").click(function() {
         //letter = "Hello Friends!";
 
-        letter = $(this).data("user_record");
-        document.getElementById("modal-content").innerHTML = letter;
-       
+        content = $(this).data("user_record");
+        title = $(this).data("content_type");
+        document.getElementById("modal-content").innerHTML = content;
+        document.getElementById("modal-title").innerHTML = title;
         $('#myModal').modal('show');
     });
 });
@@ -108,7 +111,7 @@ jQuery(document).ready(function($) {
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Generated Letter</h4>
+        <h4 id="modal-title" class="modal-title">Generated Letter</h4>
       </div>
       <div class="modal-body">
         <p id = "modal-content">Nothing</p>
@@ -122,4 +125,6 @@ jQuery(document).ready(function($) {
   </div>
 </div>
 </script>
+
+
 
