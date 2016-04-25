@@ -29,6 +29,8 @@
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 	$conn->close();
+  	header('Location: http://localhost/dropplet-master/updateRecord.php');
+
 ?>
 
 </body>

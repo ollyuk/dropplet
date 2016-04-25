@@ -1,7 +1,7 @@
 <?php
 
 class Plan_Record {
-
+    public $user_id;
     public $plan_id;
     public $name;
     public $cost;
@@ -30,8 +30,11 @@ class Plan_Record {
 
     
     function add_plans($row) {
-        $this->name = $row['Plan'];
+        $this->user_id = $row['user_id'];
+        $this->plan_id = $row['plan_id'];
+        $this->name = $row['name'];
         $this->cost = $row['cost'];
+        $this->created_at = $row['created_at'];
     }
     function __construct() {
         

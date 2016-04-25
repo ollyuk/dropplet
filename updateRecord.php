@@ -34,8 +34,8 @@ echo "<table class='table table-striped table-hover'>
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {                
-      $json_row = json_encode($user);
       $user->add_record($row);
+      $json_row = json_encode($user);
       
  
 
@@ -87,7 +87,7 @@ jQuery(document).ready(function($) {
 </script>
 <!-- Modal -->
 <div id="myModal" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div class="modal-dialog modal-sm">
 
     <!-- Modal content-->
     <div class="modal-content">

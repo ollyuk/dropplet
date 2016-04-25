@@ -12,9 +12,9 @@ include_once"index.html";
   </div>
 
   <p>Create - Create new user.</p>
-  <p>Retrieve - Click row to generate letter.</p>
-  <p>Update - not implemented.</p>
-  <p>Delete - Delete record. - Notifications and table refresh not implemented yet. </p>
-  <p><a href="http://178.62.75.23/createRecord.php?action=register"> Register a new account </a> ( no email is sent, account is ready to use straight away).<p> 
+  <p>Retrieve - Generate Letters and view plans.</p>
+  <p>Update - Click to update record.</p>
+  <p>Delete - Delete record. </p>
+  <p><a href="http://178.62.75.23/createRecord.php?action=register"> Register a new account </a> (no email is sent, account is ready to use straight away).<p> 
 
 </div>

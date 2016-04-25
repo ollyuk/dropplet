@@ -7,14 +7,14 @@ include_once"connection.php";
 include_once"class/class.Record.inc";
 
 
-// Overview: Loop thru SQL DB utility.users table and generate $user array of sql data, put it into an html table. Generate a $letter and add it to the <tr> element. 
+// Overview: Loop thru SQL DB utility.users table and generate $user array of sql data, put it into an html table. Generate a $letter and add it to the <tr data-user_record> element. 
 // Add listener to .clickable-row class and edit the modal text content data-user_record before showing it.
-// Uses HTML5, PHP, MySQL, JS, JQuery, Bootstrap.
+// Uses HTML5, PHP, MySQL, JS, JQuery, Bootstrap, CSS.
 
 echo("<div class='container'><div class='row'>");
 
 echo("<h1> Retrieve Records </h1>");
-echo("Click row to send letter <p>");
+echo(" </p>");
 
 $sql = "SELECT user_id, first_name, second_name, email_address, join_date, gender FROM users";
 $result = $conn->query($sql);
@@ -34,7 +34,6 @@ function generateLetter($first_name,$email,$cost){
 
 echo "<table class='table table-responsive table-striped table-hover'>
   <tr>
-    <th> user_id </th> 
     <th> first_name </th> 
     <th> second_name </th> 
     <th> gender </th> 
@@ -59,7 +58,6 @@ if ($result->num_rows > 0) {
 
       
       echo ("<tr id = 'user_id" . $user->user_id . "' class='clickable-row'>
-          <td>" . $user->user_id  . "</td> 
           <td>" . $user->first_name . "</td> 
           <td>" . $user->second_name . "</td> 
           <td>" . $user->gender . "</td> 
