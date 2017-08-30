@@ -37,8 +37,6 @@ if ($result->num_rows > 0) {
       $user->add_record($row);
       $json_row = json_encode($user);
       
- 
-
       echo ("<tr id = 'user_id" . $user->user_id . "' class='clickable-row' data-user_record='" .$json_row. "'>
           <td>" . $user->user_id  . "</td> 
           <td>" . $user->first_name . "</td> 
@@ -51,10 +49,8 @@ if ($result->num_rows > 0) {
     };
 };  
 
-
-
-
 $conn->close();
+
 ?>
 
 
@@ -99,11 +95,20 @@ jQuery(document).ready(function($) {
         <p id = "modal-content">	
 			<div class = "form-group">
 				<form role="form" action="updatesql.php" method="post">
+          
           <input id = "modal-user_id" class="form-control" type="hidden" name="user_id" value=""></br>
-					<label for="first_name">First Name:</label> <input id = "modal-first_name" class="form-control" type="text" name="first_name"  autofocus required="required" value="me"><br>
-					<label for="second_name">Second Name: </label> <input id = "modal-second_name"class="form-control" type="text" name="second_name" placeholder="Dole" required="required"><br>
-					<label for="email_address">E-mail: </label> <input id = "modal-email_address"type="email" class="form-control" name="email_address" placeholder="bob@dole.com" required="required"><br>
-					<label for="join_date">Join Date: </label> <input id = "modal-join_date" class="form-control" type="date" name="join_date" required="required"><br> <!--would be nice to add JS todays date as default value-->
+					
+          <label for="first_name">First Name:</label> 
+          <input id = "modal-first_name" class="form-control" type="text" name="first_name"  autofocus required="required" value="me"><br>
+					
+          <label for="second_name">Second Name: </label> 
+          <input id = "modal-second_name"class="form-control" type="text" name="second_name" placeholder="Dole" required="required"><br>
+					
+          <label for="email_address">E-mail: </label> 
+          <input id = "modal-email_address"type="email" class="form-control" name="email_address" placeholder="bob@dole.com" required="required"><br>
+					
+          <label for="join_date">Join Date: </label> 
+          <input id = "modal-join_date" class="form-control" type="date" name="join_date" required="required"><br> <!--would be nice to add JS todays date as default value-->
 			</div>	
 			<div class="radio">
 					

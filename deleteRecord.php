@@ -22,12 +22,15 @@ if ($result->num_rows > 0) {
     while($row = $result->fetch_assoc()) {                
       //$user_id = $row['user_id'];
       //$record[] = $row;
-      echo ("<tr class='clickable-row' data-user_record='" . json_encode($row) . "' data-user_id='" . $row['user_id'] . "'><td data-user_id='" . $row['user_id'] . "'>" . $row['user_id'] . "</td> <td>" . $row['first_name'] . "</td> <td>" . $row['second_name'] . "</td> <td>" . $row['gender'] . "</td> </tr> ");
+      echo (
+          "<tr class='clickable-row' data-user_record='" . json_encode($row)
+          . "' data-user_id='" . $row['user_id'] 
+          . "'><td data-user_id='" . $row['user_id'] . "'>" . $row['user_id'] . "</td> <td>" 
+          . $row['first_name'] . "</td> <td>" 
+          . $row['second_name'] . "</td> <td>" 
+          . $row['gender'] . "</td> </tr> ");
     };
 };  
-
-
-
 
 $conn->close();
 ?>
@@ -41,11 +44,13 @@ jQuery(document).ready(function($) {
         // Notify user
 
         
-        $.ajax({
-          url: 'deleteRow.php',
-          type: 'post',
-          data: { "deleteRecord": $(this).data("user_record")['user_id']},
-        }).done(function(message) {
+        $.ajax(
+          {
+            url: 'deleteRow.php',
+            type: 'post',
+            data: { "deleteRecord": $(this).data("user_record")['user_id']},
+          }
+        ).done(function(message) {
           alert(message);
           location.reload();
         });

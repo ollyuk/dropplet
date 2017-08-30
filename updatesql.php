@@ -29,7 +29,7 @@
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 	$conn->close();
-  	header('Location: http://localhost/dropplet-master/updateRecord.php');
+  	header('Location: http://localhost/dpm/updateRecord.php');
 
 ?>
 

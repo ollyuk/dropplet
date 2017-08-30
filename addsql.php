@@ -1,6 +1,4 @@
 <?php
-
-
 	// Include bootstrap and navbar.
 	include_once"index.html";
 	//Include mysql connector, also user authentication.
@@ -30,7 +28,7 @@
 	    echo "Error: " . $sql . "<br>" . $conn->error;
 	}
 	$conn->close();
-	header("Location: http://localhost/dropplet-master/createRecord.php");
+	header("Location: http://localhost/dpm/createRecord.php");
 
 ?>
 
